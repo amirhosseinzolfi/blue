@@ -2,37 +2,43 @@ import asyncio
 from telegram import Update
 from telegram.ext import Application, MessageHandler, filters, ContextTypes
 from graph import app
+from logger_config import setup_logger
+
+logger = setup_logger("telegram_bot")
 
 # Telegram Bot Token
 TELEGRAM_TOKEN = "7856418853:AAGUh7pLJfd_AHQk5b3GXEyWNCcQ3LlF84E"
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handles incoming messages and sends them to the LangGraph app."""
+    user_id = update.effective_user.id
     user_message = update.message.text
-    print(f"Received message: {user_message}")
+    
+    logger.info(f"Message from user {user_id}: {user_message[:100]}...")
+    
     inputs = {"question": user_message}
 
-    response = ""
-    # We need to run the stream in a separate thread to avoid blocking the asyncio event loop
-    loop = asyncio.get_event_loop()
-    async for output in await loop.run_in_executor(None, app.astream, inputs):
-        for key, value in output.items():
-            response = value.get('answer')
-            if response:
-                print(f"Sending response: {response}")
-                await update.message.reply_text(response)
-                return
+    try:
+        result = app.invoke(inputs)
+        response = result.get('answer', 'Sorry, I could not generate a response.')
+        
+        await update.message.reply_text(response)
+        logger.info(f"Response sent to user {user_id}: {response[:100]}...")
+        
+    except Exception as e:
+        logger.error(f"Error processing message from user {user_id}: {e}")
+        await update.message.reply_text("Sorry, there was an error processing your message.")
 
-async def main():
+def main():
     """Starts the Telegram bot."""
-    print("Starting bot...")
+    logger.info("Starting Telegram bot...")
     application = Application.builder().token(TELEGRAM_TOKEN).build()
 
-    # Handle all text messages
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-
-    # Run the bot until the user presses Ctrl-C
-    await application.run_polling()
+    
+    logger.info("Bot is running and polling for messages...")
+    application.run_polling()
 
 if __name__ == "__main__":
+    main()
     asyncio.run(main())
