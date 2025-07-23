@@ -10,3 +10,4 @@ langchain-core
 langchain-anthropic
 langchain-mistralai
 langchain-google-genai
+python-telegram-bot
