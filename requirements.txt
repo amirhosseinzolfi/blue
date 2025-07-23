@@ -1,0 +1,12 @@
+langchain-openai
+langchain-ollama
+langchain-core
+langgraph
+typing-extensions
+ipykernel
+langchain_community
+langchainhub
+langchain-core
+langchain-anthropic
+langchain-mistralai
+langchain-google-genai
