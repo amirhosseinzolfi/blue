@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blue - Login</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #1a1a1a; 
+            color: white; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+        .login-container { 
+            background: #2a2a2a; 
+            padding: 40px; 
+            border-radius: 8px; 
+            width: 300px; 
+            text-align: center; 
+        }
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            margin: 10px 0; 
+            border: 1px solid #444; 
+            background: #333; 
+            color: white; 
+            border-radius: 4px; 
+            box-sizing: border-box; 
+        }
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 16px; 
+        }
+        .info { 
+            margin-bottom: 20px; 
+            color: #ccc; 
+            font-size: 14px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Welcome to Blue</h2>
+        <div class="info">
+            Enter phone number (+1234567890) and password.<br>
+            New users will be automatically registered.
+        </div>
+        <form method="post" action="/login">
+            <input type="text" name="username" placeholder="Phone Number (+1234567890)" required>
+            <input type="password" name="password" placeholder="Password (min 6 chars)" required>
+            <button type="submit">Login / Sign Up</button>
+        </form>
+    </div>
+</body>
+</html>
