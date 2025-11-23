@@ -1,0 +1,20 @@
+# Core LangChain & LangGraph
+langchain>=0.3.0
+langchain-openai>=0.3.0
+langchain-ollama>=0.3.0
+langgraph>=0.5.0
+
+# Frontend Frameworks
+chainlit>=2.6.0
+python-telegram-bot>=22.0
+
+# API & Web Server
+fastapi>=0.115.0
+uvicorn>=0.35.0
+
+# Utilities
+python-dotenv>=1.1.0
+aiofiles>=24.0.0
+websockets>=15.0.0
+pydantic>=2.7.0
+requests>=2.32.0
